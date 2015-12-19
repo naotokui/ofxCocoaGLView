@@ -261,7 +261,8 @@ static NSOpenGLContext *_context = nil;
 		
 		[self.window setFrameUsingName:[self className] force:YES];
 		[self setFrameRate:60];
-	}
+        
+    }
 	
 	return self;
 }
@@ -445,6 +446,9 @@ static NSOpenGLContext *_context = nil;
 	[super prepareOpenGL];
 	[self initGL];
 	[self enableDisplayLink:NO];
+    
+    // FIXME: not sure where to put this!
+    ofSetOrientation(ofGetOrientation(), true);
 }
 
 - (void)enableWindowEvents:(BOOL)v
@@ -513,7 +517,7 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink,
 	if ([self isVisible])
 	{
 		ScopedAutoReleasePool pool;
-		
+        
 		BEGIN_OPENGL();
 		
 		makeCurrentView(self);
@@ -539,6 +543,7 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink,
 		
 		NSRect r = self.bounds;
 		ofViewport(0, 0, r.size.width, r.size.height);
+        
 		bool clearAuto = ofGetBackgroundAuto();
 
 		if (clearAuto || frameCount < 3)
@@ -549,6 +554,7 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink,
 		}
 
 		if (enableSetupScreen) ofSetupScreen();
+        
 		[self draw];
 		ofEvents().notifyDraw();
 		
@@ -610,6 +616,7 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink,
 	p = [self convertPoint:p fromView:nil];
 
 	mouseX = p.x;
+	mouseY = self.frame.size.height - p.y; // TODO: there must be a better solution!
 
 	return p;
 }
