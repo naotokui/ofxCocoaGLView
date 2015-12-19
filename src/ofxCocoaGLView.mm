@@ -539,7 +539,6 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink,
 		
 		NSRect r = self.bounds;
 		ofViewport(0, 0, r.size.width, r.size.height);
-
 		bool clearAuto = ofGetBackgroundAuto();
 
 		if (clearAuto || frameCount < 3)
@@ -550,7 +549,6 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink,
 		}
 
 		if (enableSetupScreen) ofSetupScreen();
-
 		[self draw];
 		ofEvents().notifyDraw();
 		
@@ -612,7 +610,6 @@ static CVReturn DisplayLinkCallback(CVDisplayLinkRef displayLink,
 	p = [self convertPoint:p fromView:nil];
 
 	mouseX = p.x;
-	mouseY = p.y;
 
 	return p;
 }

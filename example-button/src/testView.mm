@@ -21,7 +21,8 @@
 	ofNoFill();
 	ofSetColor(255);
 	ofDrawCircle(self.mouseX, self.mouseY, 100);
-
+    
+    ofDrawBitmapString("is flipped?", 100, 100);
 }
 
 - (void)exit
